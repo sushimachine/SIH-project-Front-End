@@ -1,21 +1,11 @@
-// src/App.js
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import SignInPage from './pages/SignInPage';
+import React from 'react'
 
-function App() {
+const App = () => {
   return (
-    <Routes>
-      {/* Route for your sign-in page */}
-      <Route path="/signin" element={<SignInPage />} />
-
-      {/* When you create a sign-up page, you will add a route here */}
-      {/* <Route path="/signup" element={<SignUpPage />} /> */}
+    <div>
       
-      {/* A default route that also points to the sign-in page */}
-      <Route path="/" element={<SignInPage />} />
-    </Routes>
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App
