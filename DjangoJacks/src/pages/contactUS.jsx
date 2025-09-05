@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-// --- SVG Icon Components (unchanged) ---
+// --- SVG Icon Components ---
+// These SVG components are used to render the icons.
 const PhoneIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-3 text-indigo-300"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> );
 const MailIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-3 text-indigo-300"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> );
 const LocationIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-3 text-indigo-300"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> );
@@ -10,233 +11,472 @@ const TwitterIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="20" h
 
 
 function ContactForm() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    serviceType: "web-development",
-    message: "",
-  });
-  const [submissionStatus, setSubmissionStatus] = useState(null);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    serviceType: "web-development",
+    message: "",
+  });
+  const [submissionStatus, setSubmissionStatus] = useState(null);
 
-  const handleChange = (e) =>
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleChange = (e) =>
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmissionStatus("success");
-    setTimeout(() => setSubmissionStatus(null), 4000);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmissionStatus("success");
+    setTimeout(() => setSubmissionStatus(null), 4000);
+  };
 
-  return (
-    <div className="w-full md:w-2/3 p-6 sm:p-8">
-      {submissionStatus && (
-        <div
-          className="mb-4 p-3 text-sm text-green-700 bg-green-100 rounded-md"
-          role="alert"
-        >
-          Your message has been sent.
-        </div>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* First Name */}
-          <div>
-            <label
-              htmlFor="firstName"
-              className="block text-sm font-medium text-gray-700"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="John"
-              required
-            />
-          </div>
+  return (
+    <div className="contact-form">
+      {submissionStatus && (
+        <div className="alert" role="alert">
+          Your message has been sent.
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="form-container">
+        <div className="form-grid">
+          <div>
+            <label htmlFor="firstName" className="form-label">
+              First Name
+            </label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="John"
+              required
+            />
+          </div>
 
-          {/* Last Name */}
-          <div>
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Doe"
-              required
-            />
-          </div>
-        </div>
+          <div>
+            <label htmlFor="lastName" className="form-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Doe"
+              required
+            />
+          </div>
+        </div>
 
-        {/* Email */}
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="you@example.com"
-            required
-          />
-        </div>
+        <div>
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="form-input"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
 
-        {/* Phone */}
-        <div>
-          <label
-            htmlFor="phone"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Phone
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="+1 234 567 890"
-          />
-        </div>
+        <div>
+          <label htmlFor="phone" className="form-label">
+            Phone
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="form-input"
+            placeholder="+1 234 567 890"
+          />
+        </div>
 
-        {/* Service Type */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-700 mb-2 px-3 py-2">
-            What type of user are you?
-          </h3>
-          <div className="flex flex-wrap gap-x-4 gap-y-2">
-            {["Alumni", "Student", "College Admin", "Other"].map(
-              (service) => {
-                const serviceId = service.toLowerCase().replace(" ", "-");
-                return (
-                  <div className="flex items-center" key={serviceId}>
-                    <input
-                      id={serviceId}
-                      name="serviceType"
-                      type="radio"
-                      value={serviceId}
-                      checked={formData.serviceType === serviceId}
-                      onChange={handleChange}
-                      className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-                    />
-                    <label
-                      htmlFor={serviceId}
-                      className="ml-2 block text-sm text-gray-900"
-                    >
-                      {service}
-                    </label>
-                  </div>
-                );
-              }
-            )}
-          </div>
-        </div>
+        <div>
+          <h3 className="form-heading">
+            What type of user are you?
+          </h3>
+          <div className="radio-group">
+            {["Alumni", "Student", "College Admin", "Other"].map(
+              (service) => {
+                const serviceId = service.toLowerCase().replace(" ", "-");
+                return (
+                  <div className="radio-item" key={serviceId}>
+                    <input
+                      id={serviceId}
+                      name="serviceType"
+                      type="radio"
+                      value={serviceId}
+                      checked={formData.serviceType === serviceId}
+                      onChange={handleChange}
+                      className="radio-input"
+                    />
+                    <label htmlFor={serviceId} className="radio-label">
+                      {service}
+                    </label>
+                  </div>
+                );
+              }
+            )}
+          </div>
+        </div>
 
-        {/* Message */}
-        <div>
-          <label
-            htmlFor="message"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="3"
-            value={formData.message}
-            onChange={handleChange}
-            className="mt-1 block w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Write your message..."
-            required
-          ></textarea>
-        </div>
+        <div>
+          <label htmlFor="message" className="form-label">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="3"
+            value={formData.message}
+            onChange={handleChange}
+            className="form-input"
+            placeholder="Write your message..."
+            required
+          ></textarea>
+        </div>
 
-        {/* Submit */}
-        <div className="flex justify-end pt-2">
-          <button
-            type="submit"
-            className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#4c3a9a] hover:bg-[#3b2d7a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Send
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+        <div className="submit-container">
+          <button type="submit" className="submit-button">
+            Send
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
-
-
 function ContactInfoPanel() {
-    return (
-        <div className="w-full md:w-1/3 bg-[#4c3a9a] text-white p-8 relative overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-t-none flex flex-col justify-center">
-            <div className="relative z-10">
-                <h2 className="text-2xl font-semibold mb-1">Contact Information</h2>
-                <p className="text-indigo-200 mb-6 text-sm">Our team will get back to you within 24 hours.</p>
-                <div className="space-y-4">
-                    <div className="flex items-center text-sm"> <PhoneIcon /> <span>+0123 4567 8910</span> </div>
-                    <div className="flex items-center text-sm"> <MailIcon /> <span>hello@flowbase.com</span> </div>
-                    <div className="flex items-center text-sm"> <LocationIcon /> <span>102 Street 2714 Don</span> </div>
-                </div>
-                <div className="flex space-x-4 mt-8 pt-4 border-t border-indigo-500/30">
-                    <a href="#" className="text-indigo-300 hover:text-white"><FacebookIcon /></a>
-                    <a href="#" className="text-indigo-300 hover:text-white"><LinkedInIcon /></a>
-                    <a href="#" className="text-indigo-300 hover:text-white"><TwitterIcon /></a>
-                </div>
-            </div>
-            <div className="absolute -bottom-16 -right-16 w-40 h-40 bg-[#f78f8f] rounded-full opacity-50"></div>
-            <div className="absolute -bottom-20 -left-10 w-32 h-32 bg-[#7b68c7] rounded-full"></div>
-        </div>
-    );
+  return (
+    <div className="contact-panel">
+      <div className="contact-panel-content">
+        <h2>Contact Information</h2>
+        <p>Our team will get back to you within 24 hours.</p>
+        <div className="contact-details">
+          <div className="detail-item"> <PhoneIcon /> <span>+0123 4567 8910</span> </div>
+          <div className="detail-item"> <MailIcon /> <span>hello@flowbase.com</span> </div>
+          <div className="detail-item"> <LocationIcon /> <span>102 Street 2714 Don</span> </div>
+        </div>
+        <div className="social-links">
+          <a href="#" className="social-icon"><FacebookIcon /></a>
+          <a href="#" className="social-icon"><LinkedInIcon /></a>
+          <a href="#" className="social-icon"><TwitterIcon /></a>
+        </div>
+       </div>
+      <div className="panel-bg panel-bg-1"></div>
+      <div className="panel-bg panel-bg-2"></div>
+    </div>
+  );
 }
 
 export default function ContactUsPage() {
-  return (
-    <div className="min-h-screen w-full flex justify-center font-sans pt-12 px-6">
-      <div className="max-w-5xl w-full">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-800">
-            Contact Us
-          </h1>
-          <p className="mt-2 text-md text-gray-500">
-            Any questions or remarks? Just write us a message!
-          </p>
-        </div>
-        <div className="flex flex-col md:flex-row bg-white rounded-2xl shadow-lg p-2">
-          <ContactInfoPanel />
-          <ContactForm />
-        </div>
-      </div>
+  return (
+    <div className="page-container">
+      <div className="content-wrapper">
+        <div className="header">
+          <h1>Contact Us</h1>
+          <p>Any questions or remarks? Just write us a message!</p>
+        </div>
+        <div className="contact-card">
+          <ContactInfoPanel />
+          <ContactForm />
+        </div>
+      </div>
+      <style>
+        {`
+        body {
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            max-width: 80rem;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #6b7280;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-card {
+                flex-direction: row;
+            }
+        }
+
+        /* --- Contact Info Panel --- */
+        .contact-panel {
+            width: 100%;
+            background-color: #4c3a9a;
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
+
+        @media (min-width: 768px) {
+            .contact-panel {
+                width: 33.333333%;
+                border-radius: 1.5rem 0 0 1.5rem;
+            }
+        }
+
+        .contact-panel-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-panel h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-panel p {
+            color: #c7d2fe;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(199, 210, 254, 0.3);
+        }
+
+        .social-icon {
+            color: #c7d2fe;
+            transition: color 0.2s;
+        }
+
+        .social-icon:hover {
+            color: white;
+        }
+
+        /* Background shapes for the panel */
+        .panel-bg {
+            position: absolute;
+            background-color: #f78f8f;
+            border-radius: 9999px;
+            opacity: 0.5;
+        }
+
+        .panel-bg-1 {
+            bottom: -4rem;
+            right: -4rem;
+            width: 10rem;
+            height: 10rem;
+        }
+
+        .panel-bg-2 {
+            bottom: -5rem;
+            left: -2.5rem;
+            width: 8rem;
+            height: 8rem;
+            background-color: #7b68c7;
+        }
+
+
+        /* --- Contact Form --- */
+        .contact-form {
+            width: 100%;
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-form {
+                width: 66.666667%;
+            }
+        }
+
+        .alert {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background-color: #d1fae5;
+            color: #065f46;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 0.25rem;
+        }
+        
+        .form-heading {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            background-color: #fff;
+            color: #1f2937;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-input:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 1px #6366f1;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .radio-input {
+            height: 1rem;
+            width: 1rem;
+            color: #4c3a9a;
+            border-color: #d1d5db;
+        }
+        
+        .radio-label {
+            margin-left: 0.5rem;
+            font-size: 0.875rem;
+            color: #1f2937;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 1rem;
+        }
+
+        .submit-button {
+            display: inline-flex;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            border: 1px solid transparent;
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            background-color: #4c3a9a;
+            transition: background-color 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #3b2d7a;
+        }
+      `}
+      </style>
     </div>
   );
 }
-
-
-
-
