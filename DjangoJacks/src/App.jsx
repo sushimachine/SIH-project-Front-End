@@ -1,17 +1,17 @@
 import React from 'react';
-import './App.css'; // This file is now created to resolve the error.
+import './App.css';
 import ContactUsPage from './pages/contactUS';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-
+import FaqPage from './pages/FAQ'; // ✅ import correctly
 
 function App() {
- 
   return (
     <div className="App">
-      
       {/* <ContactUsPage /> */}
-      <Login />
+      {/* <Login /> */}
+      {/* <SignUp /> */}
+      <FaqPage />
     </div>
   );
 }
