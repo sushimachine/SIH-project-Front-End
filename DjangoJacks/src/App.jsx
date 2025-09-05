@@ -8,11 +8,11 @@ import AlumniDirectory from './pages/AlumniDirectory';
 function App() {
   return (
     <div className="App">
-      {/* <ContactUsPage /> */}
+      <ContactUsPage />
       {/* <Login /> */}
       {/* <SignUp /> */}
       {/* <FaqPage /> */}
-      <AlumniDirectory/>
+      {/* <AlumniDirectory/> */}
     </div>
   );
 }
