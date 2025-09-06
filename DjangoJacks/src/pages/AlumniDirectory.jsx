@@ -21,6 +21,22 @@ export default function AlumniDirectory() {
       { name: "Sophia Lee", year: "Class of 2023", degree: "Bachelor of Arts", department: "Psychology", role: "Research Assistant", company: "Stanford University", location: "Palo Alto, CA" },
     ];
 
+// import { useEffect, useState } from "react";
+// const [alumniList, setAlumniList] = useState([]);
+// useEffect(() => {
+//   fetch("http://localhost:8000/api/alumni/")  // Django REST endpoint
+//     .then(res => res.json())
+//     .then(data => setAlumniList(data));
+// }, []);
+
+
+{/* <section style={styles.alumniGrid}>
+  {alumniList.map((alumni, idx) => (
+    <AlumniCard key={idx} alumni={alumni} />
+  ))}
+</section> */}
+
+
     const alumniWithAvatars = dummyData.map(alumni => ({
       ...alumni,
       avatar: getRandomAvatar(alumni.name + Math.random()),
