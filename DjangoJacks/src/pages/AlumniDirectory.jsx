@@ -274,7 +274,7 @@ export default function AlumniDirectory() {
       <div style={styles.bannerWrapper}>
         {/* Replace this src with the actual path to your image */}
         <img 
-            src="./public/Images/bckg.jpg" 
+            src="./public/Images/1567666.jpg" 
             alt="Banner Background" 
             style={styles.bannerImg}
         />

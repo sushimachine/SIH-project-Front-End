@@ -5,9 +5,11 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import FaqPage from './pages/FAQ'; // ✅ import correctly
 import AlumniDirectory from './pages/AlumniDirectory';
-import Landing from './pages/Landing';
+import Landing from './pages/LandingPage';
 import "yet-another-react-lightbox/styles.css";
 import LandingNav from './pages/Nav/LandingNav';
+import JobOpportunitiesPage from './pages/JobOppurtunity/JobOpportunitiesPage';
+import JobDetailPage from './pages/JobOppurtunity/JobDetailPage'; 
 function App() {
   return (
     <div className="App">
@@ -16,7 +18,9 @@ function App() {
       {/* <SignUp /> */}
       {/* <FaqPage /> */}
       {/* <AlumniDirectory/> */}
-      <Landing/>
+      {/* <Landing/> */}
+      <JobOpportunitiesPage/>
+      {/* <JobDetailPage/> */}
     </div>
   );
 }
