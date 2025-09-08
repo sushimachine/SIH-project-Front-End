@@ -10,6 +10,8 @@ import "yet-another-react-lightbox/styles.css";
 import LandingNav from './pages/Nav/LandingNav';
 import JobOpportunitiesPage from './pages/JobOppurtunity/JobOpportunitiesPage';
 import JobDetailPage from './pages/JobOppurtunity/JobDetailPage'; 
+import EventsPage from './pages/Events/Events';
+import EventDetailPage from './pages/Events/EventDetails';
 function App() {
   return (
     <div className="App">
@@ -19,8 +21,10 @@ function App() {
       {/* <FaqPage /> */}
       {/* <AlumniDirectory/> */}
       {/* <Landing/> */}
-      <JobOpportunitiesPage/>
+      {/* <JobOpportunitiesPage/> */}
       {/* <JobDetailPage/> */}
+      {/* <EventsPage/> */}
+      <EventDetailPage/>
     </div>
   );
 }
