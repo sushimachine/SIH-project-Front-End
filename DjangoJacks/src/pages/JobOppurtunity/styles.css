@@ -250,7 +250,7 @@
     border-color: #007bff;
 }
 
-.page-nav.disabled {
+.page-nav:disabled {
     color: #aaa;
     cursor: not-allowed;
 }
@@ -561,20 +561,67 @@
     background-color: #e2e6ea;
 }
 
-.detail-item { 
-    display: flex; 
-    align-items: center; 
-    gap: 0.5rem; 
+.site-footer {
+    background-color: #002d42; /* Dark teal color */
+    color: #fff;
+    padding: 4rem 2rem;
+    margin-top: 3rem;
 }
-.card-skills { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 0.5rem; 
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
 }
-.skill-tag { 
-    background-color: #f0f0f0; 
-    padding: 4px 10px; 
-    border-radius: 4px; 
-    font-size: 0.8rem; 
-    color: #444; 
+
+.footer-col h3, .footer-col h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.footer-col a {
+    display: block;
+    color: #aeb8c9;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    transition: color 0.2s;
+}
+
+.footer-col a:hover {
+    color: #fff;
+}
+
+.contact-info p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: #aeb8c9;
+}
+
+.contact-info button {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+.contact-info button:hover {
+    background-color: #fff;
+    color: #002d42;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    color: #fff;
 }
