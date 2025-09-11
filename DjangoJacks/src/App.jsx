@@ -1,30 +1,29 @@
-import React from 'react';
-import './index.css';
-import ContactUsPage from './pages/contactUS';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import FaqPage from './pages/FAQ'; // ✅ import correctly
-import AlumniDirectory from './pages/AlumniDirectory';
-import Landing from './pages/LandingPage';
-import "yet-another-react-lightbox/styles.css";
-import LandingNav from './pages/Nav/LandingNav';
-import JobOpportunitiesPage from './pages/JobOppurtunity/JobOpportunitiesPage';
-import EventsPage from './pages/Events/Events';
-function App() {
+import React from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import SignUp from './Pages/signUp'
+import LogIn from './Pages/Login'
+import Landing from './Pages/LandingPage'
+import ContactUsPage from './Pages/ContactUs';
+import FaqPage from './Pages/faq';
+import Dashboard from './Pages/Dashboard/Dashboard';
+
+const App = () => {
   return (
-    <div className="App">
-      {/* <ContactUsPage /> */}
-      {/* <Login /> */}
-      {/* <SignUp /> */}
-      {/* <FaqPage /> */}
-      {/* <AlumniDirectory/> */}
-      {/* <Landing/> */}
-      <JobOpportunitiesPage/>
-      {/* <JobDetailPage/> */}
-      {/* <EventsPage/> */}
-      {/* <EventDetailPage/> */}
+    <div>
+      <BrowserRouter>
+        <Routes>
+  <Route path='/' element={<Landing />} />
+  <Route path='/dashboard' element={<Dashboard />} />
+  <Route path='/faqs' element={<FaqPage />} />
+  <Route path='/home' element={<Landing />} />
+  <Route path='/signup' element={<SignUp />} />
+  <Route path='/login' element={<LogIn />} />
+  <Route path='/contactus' element={<ContactUsPage />} />
+</Routes>
+
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

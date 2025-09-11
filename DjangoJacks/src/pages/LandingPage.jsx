@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LandingNav from "./Nav/LandingNav";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import './App.css';
 
 const Landing = () => {
   // 🔹 Banner Images
