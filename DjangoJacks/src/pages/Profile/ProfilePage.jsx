@@ -21,10 +21,6 @@ const EmailIcon = () => (
 
 const CalendarIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-left"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>;
 
-const ChevronDownIcon = ({ isOpen }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`chevron-icon ${isOpen ? 'is-open' : ''}`}><path d="m6 9 6 6 6-6"/></svg>
-);
-
 // Social Icons
 const LinkedInIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
 const TwitterIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>;
@@ -52,7 +48,7 @@ const alumniData = {
         experience: "4 years",
         ctc: "12.5 Lac",
         location: "Pune, Maharastra",
-        Workphone: "+91 98123 55679",
+        workphone: "+91 98123 55679",
         email: "amitgrover@gmail.com"
     },
     experience: [
@@ -92,10 +88,6 @@ const alumniData = {
     accomplishments: [
         { logo: "Images/bckg.jpg", title: "Best Designer Award", organization: "Infosys", year: "2020" },
         { logo: "Images/bckg1.webp", title: "Innovator of the Year", organization: "Pixel Studio", year: "2017" }
-    ],
-    certifications: [
-        { logo: "Images/bckg.jpg", title: "Certified UX Professional", authority: "Nielsen Norman Group", year: "2019" },
-        { logo: "Images/bckg1.webp", title: "Adobe Certified Expert - Adobe XD", authority: "Adobe", year: "2018" }
     ],
     donations: [
         { id: 1, campaign: "Annual Alumni Fund 2024", amount: "₹5,000", date: "2024-08-15" },
@@ -432,31 +424,17 @@ const Styles = () => (
             background-color: #15803d;
         }
 
-        /* Accordion -- UPDATED */
-        .accordion-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-        .accordion-section {
+        .content-section {
+            padding-bottom: 1rem;
             border-bottom: 1px solid #e2e8f0;
         }
-        .accordion-toggle {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .accordion-title {
+        .content-title {
             font-size: 1.25rem;
             font-weight: bold;
             color: #1e293b;
+            padding: 1rem 0;
         }
-        .accordion-content {
+        .content-body {
             padding-bottom: 1rem;
             display: flex;
             flex-direction: column;
@@ -486,14 +464,6 @@ const Styles = () => (
             font-size: 0.875rem;
             color: #64748b;
              margin: 0;
-        }
-        .chevron-icon {
-            height: 1.5rem;
-            width: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        .chevron-icon.is-open {
-            transform: rotate(180deg);
         }
         
         /* Modals */
@@ -646,7 +616,6 @@ const Styles = () => (
 export default function AlumniProfilePage() {
     const [notes, setNotes] = useState([]);
     const [newNote, setNewNote] = useState("");
-    const [openSections, setOpenSections] = useState(['experience']);
     const [isDonationModalOpen, setDonationModalOpen] = useState(false);
     const [isBookingModalOpen, setBookingModalOpen] = useState(false);
 
@@ -655,12 +624,6 @@ export default function AlumniProfilePage() {
             setNotes([...notes, newNote]);
             setNewNote("");
         }
-    };
-
-    const toggleSection = (section) => {
-        setOpenSections(prev => 
-            prev.includes(section) ? prev.filter(s => s !== section) : [...prev, section]
-        );
     };
 
     const dashboardItems = [
@@ -680,7 +643,8 @@ export default function AlumniProfilePage() {
                     {/* Header */}
                     <header className="profile-header">
                         <button className="back-button">
-                            <span></span>
+                            <BackIcon />
+                            <span>Back</span>
                         </button>
                         <button className="share-button">
                             <ShareIcon />
@@ -787,89 +751,54 @@ export default function AlumniProfilePage() {
                                 </div>
                             </section>
 
-                            {/* Accordion Sections -- UPDATED */}
-                            <div className="accordion-container">
+                            {/* Content Sections */}
+                            <div className="content-sections-container">
                                 {/* Experience Section */}
-                                <div className="accordion-section">
-                                    <button onClick={() => toggleSection('experience')} className="accordion-toggle">
-                                        <h3 className="accordion-title">Experience</h3>
-                                        <ChevronDownIcon isOpen={openSections.includes('experience')} />
-                                    </button>
-                                    {openSections.includes('experience') && (
-                                        <div className="accordion-content">
-                                            {alumniData.experience.map((exp, index) => (
-                                                <div key={index} className="list-item">
-                                                    <img src={exp.logo} alt="" className="list-item-logo" />
-                                                    <div>
-                                                        <h4 className="list-item-title">{exp.company}</h4>
-                                                        <p className="list-item-subtitle">{exp.role}</p>
-                                                        <p className="list-item-meta">{exp.period}</p>
-                                                    </div>
+                                <div className="content-section">
+                                    <h3 className="content-title">Experience</h3>
+                                    <div className="content-body">
+                                        {alumniData.experience.map((exp, index) => (
+                                            <div key={index} className="list-item">
+                                                <img src={exp.logo} alt={`${exp.company} logo`} className="list-item-logo" />
+                                                <div>
+                                                    <h4 className="list-item-title">{exp.company}</h4>
+                                                    <p className="list-item-subtitle">{exp.role}</p>
+                                                    <p className="list-item-meta">{exp.period}</p>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                                 {/* Education Section */}
-                                <div className="accordion-section">
-                                    <button onClick={() => toggleSection('education')} className="accordion-toggle">
-                                        <h3 className="accordion-title">Education</h3>
-                                        <ChevronDownIcon isOpen={openSections.includes('education')} />
-                                    </button>
-                                    {openSections.includes('education') && (
-                                        <div className="accordion-content">
-                                            {alumniData.education.map((edu, index) => (
-                                                <div key={index} className="list-item">
-                                                    <img src={edu.logo} alt="" className="list-item-logo" />
-                                                    <div>
-                                                        <h4 className="list-item-title">{edu.institution}</h4>
-                                                        <p className="list-item-subtitle">{edu.degree}</p>
-                                                        <p className="list-item-meta">{edu.period}</p>
-                                                    </div>
+                                <div className="content-section">
+                                    <h3 className="content-title">Education</h3>
+                                    <div className="content-body">
+                                        {alumniData.education.map((edu, index) => (
+                                            <div key={index} className="list-item">
+                                                <img src={edu.logo} alt={`${edu.institution} logo`} className="list-item-logo" />
+                                                <div>
+                                                    <h4 className="list-item-title">{edu.institution}</h4>
+                                                    <p className="list-item-subtitle">{edu.degree}</p>
+                                                    <p className="list-item-meta">{edu.period}</p>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                                 {/* Accomplishments Section */}
-                                <div className="accordion-section">
-                                    <button onClick={() => toggleSection('accomplishments')} className="accordion-toggle">
-                                        <h3 className="accordion-title">Accomplishments</h3>
-                                        <ChevronDownIcon isOpen={openSections.includes('accomplishments')} />
-                                    </button>
-                                    {openSections.includes('accomplishments') && (
-                                        <div className="accordion-content">
-                                            {alumniData.accomplishments.map((acc, index) => (
-                                                <div key={index} className="list-item">
-                                                    <img src={acc.logo} alt="" className="list-item-logo" />
-                                                    <div>
-                                                        <h4 className="list-item-title">{acc.title}</h4>
-                                                        <p className="list-item-subtitle">{acc.organization} - {acc.year}</p>
-                                                    </div>
+                                <div className="content-section">
+                                    <h3 className="content-title">Accomplishments</h3>
+                                    <div className="content-body">
+                                        {alumniData.accomplishments.map((acc, index) => (
+                                            <div key={index} className="list-item">
+                                                <img src={acc.logo} alt="" className="list-item-logo" />
+                                                <div>
+                                                    <h4 className="list-item-title">{acc.title}</h4>
+                                                    <p className="list-item-subtitle">{acc.organization} - {acc.year}</p>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                                 {/* Certifications Section */}
-                                <div className="accordion-section">
-                                    <button onClick={() => toggleSection('certifications')} className="accordion-toggle">
-                                        <h3 className="accordion-title">Certifications</h3>
-                                        <ChevronDownIcon isOpen={openSections.includes('certifications')} />
-                                    </button>
-                                    {openSections.includes('certifications') && (
-                                        <div className="accordion-content">
-                                            {alumniData.certifications.map((cert, index) => (
-                                                <div key={index} className="list-item">
-                                                    <img src={cert.logo} alt="" className="list-item-logo" />
-                                                    <div>
-                                                        <h4 className="list-item-title">{cert.title}</h4>
-                                                        <p className="list-item-subtitle">{cert.authority} - {cert.year}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </main>
