@@ -6,8 +6,7 @@ import Landing from './Pages/LandingPage'
 import ContactUsPage from './Pages/ContactUs';
 import FaqPage from './Pages/faq';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import AlumniProfilePage from './pages/Profile/ProfilePage';
-
+import { AlumniPortal } from './pages/DirectoryProfile';
 const App = () => {
   return (
     <div>
@@ -23,7 +22,7 @@ const App = () => {
 </Routes>
 
       </BrowserRouter> */}
-      <AlumniD/>
+      <AlumniPortal/>
     </div>
   )
 }

@@ -1218,7 +1218,7 @@ function AlumniProfilePage({ onBackClick }) {
 //==================================================================
 // 4. PARENT APP COMPONENT TO MANAGE WHICH PAGE TO SHOW
 //==================================================================
-export default function App() {
+export function AlumniPortal() {
     const [selectedAlumni, setSelectedAlumni] = useState(null);
 
     const handleAlumniSelect = (alumni) => {
