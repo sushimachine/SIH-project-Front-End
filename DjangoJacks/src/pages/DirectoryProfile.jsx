@@ -1,33 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// --- SVG Icon Components ---
-// These icons are used throughout the profile page for a clean, consistent look.
-
+//==================================================================
+// 1. ALL SVG ICONS (Unchanged)
+//==================================================================
 const BackIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
 );
-
 const ShareIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
 );
-
 const DownloadIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-left"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
 );
-
 const EmailIcon = () => (
-     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-left"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-left"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+);
+const SearchIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+);
+const ChevronLeft = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+);
+const ChevronRight = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
 );
 
+const FacebookIcon = () => <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3l-.5 3h-2.5v6.8A10 10 0 0022 12z"></path></svg>;
+const XIcon = () => <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>;
+const InstagramIcon = () => <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"></path></svg>;
 const CalendarIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-left"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>;
-
-// Social Icons
 const LinkedInIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
 const TwitterIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>;
 const GitHubIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>;
 const WebsiteIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>;
-
-// Dashboard Icons
 const PostedJobsIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dashboard-icon"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
 const ApplicationsIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dashboard-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>;
 const ReferralIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dashboard-icon active"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>;
@@ -35,77 +40,513 @@ const EventsIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" heig
 const CampaignsIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dashboard-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6v6l4 2"/></svg>;
 const DonationsIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dashboard-icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>;
 
+// Generate a unique avatar URL using DiceBear API
+// const getRandomAvatar = (seed) => {
+//     const style = 'avataaars'; // Choose your preferred style
+//     const encodedSeed = encodeURIComponent(seed);
+//     return `https://api.dicebear.com/9.x/${style}/svg?seed=${encodedSeed}`;
+// };
 
-// --- Dummy Data for the Profile ---
-const alumniData = {
-    name: "Amit Grover",
-    title: "UI/UX Designer",
-    avatarUrl: "/public/Images/profile.webp",
-    bio: "Full stack product designer with hands-on experience in solving problems for clients ranging from Real Estate, Hospitality, Rentals, On Demand Healthcare, IT Services & Social network among others. End-to-end user-centric-skills, with a defined process for engagement, a toolkit for collaboration & a user-centered approach to design.",
-    skills: ["User Interface Designing", "UX", "UI", "Adobe XD", "Mobile Apps", "User Research", "Wireframing", "Information Architecture"],
-    basicInfo: {
-        age: "28 years",
-        experience: "4 years",
-        role: "UI/UX Designer",
-        location: "Pune, Maharastra",
-        Availibility: "+91 98123 55679",
-        email: "amitgrover@gmail.com"
+//==================================================================
+// 2. ALUMNI DIRECTORY PAGE & CARD SUB-COMPONENT
+//==================================================================
+function AlumniDirectory({ onAlumniSelect }) {
+    const [alumniList, setAlumniList] = useState([]);
+
+    useEffect(() => {
+    const dummyData = [
+        { id: 1, name: "Amit Grover", avatarUrl: "/public/Images/profile.webp", year: "Class of 2022", degree: "Bachelor of Engineering", department: "Computer Engineering", role: "Software Engineer", company: "Google", location: "San Francisco, CA" },
+        { id: 2, name: "Jane Smith", avatarUrl: "/public/Images/Profile2.webp", year: "Class of 2021", degree: "MBA", department: "Business Administration", role: "Product Manager", company: "Apple", location: "Cupertino, CA" },
+        { id: 3, name: "Rahul Kumar", avatarUrl: "/public/Images/profile3.webp", year: "Class of 2020", degree: "Bachelor of Technology", department: "Mechanical Engineering", role: "Design Engineer", company: "Tesla", location: "Austin, TX" },
+        { id: 4, name: "Emily Johnson", avatarUrl: "/public/Images/profile4.webp", year: "Class of 2019", degree: "Master of Science", department: "Data Science", role: "Data Scientist", company: "Microsoft", location: "Seattle, WA" },
+        { id: 5, name: "Amit Sharma", avatarUrl: "/public/Images/profile5.webp", year: "Class of 2018", degree: "Bachelor of Commerce", department: "Finance", role: "Financial Analyst", company: "Goldman Sachs", location: "New York, NY" },
+        { id: 6, name: "Sophia Lee", avatarUrl: "/public/Images/profile6.webp", year: "Class of 2023", degree: "Bachelor of Arts", department: "Psychology", role: "Research Assistant", company: "Stanford University", location: "Palo Alto, CA" },
+    ];
+
+    // FIX: Remove the old ".map" logic and just set the list directly.
+    setAlumniList(dummyData);
+}, []);
+
+    const styles = {
+        container: {
+            maxWidth: "1200px",
+            margin: "0 auto",
+            padding: "0 20px",
+        },
+        bannerWrapper: {
+            height: "450px",
+            position: "relative",
+            color: "white",
+            borderRadius: "15px",
+            margin: "20px auto",
+            maxWidth: "1200px",
+            boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
+            overflow: "hidden",
+        },
+        bannerImg: {
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: 1,
+        },
+        bannerOverlay: {
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            background: "rgba(26, 31, 54, 0.85)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            padding: "20px",
+            zIndex: 2,
+        },
+        bannerTitle: {
+            fontSize: "3rem",
+            marginBottom: "10px",
+        },
+        bannerText: {
+            fontSize: "1.2rem",
+            marginBottom: "20px",
+        },
+        viewInsightsBtn: {
+            padding: "10px 25px",
+            marginBottom: "30px",
+            fontSize: "1rem",
+            fontWeight: "600",
+            color: "white",
+            background: "rgba(255, 255, 255, 0.15)",
+            border: "1px solid rgba(255, 255, 255, 0.3)",
+            borderRadius: "25px",
+            cursor: "pointer",
+        },
+        stats: {
+            display: "flex",
+            justifyContent: "center",
+            gap: "60px",
+            margin: "20px 0",
+        },
+        statsNumber: {
+            fontSize: "4rem",
+            fontWeight: "700",
+            margin: "0 0 5px 0",
+            lineHeight: 1,
+        },
+        statsLabel: {
+            fontSize: "1rem",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            opacity: 0.8,
+        },
+        searchBar: {
+            marginTop: "30px",
+            display: "flex",
+            justifyContent: "center",
+            width: "70%",
+            maxWidth: "600px",
+        },
+        searchInput: {
+            padding: "12px 20px",
+            width: "100%",
+            border: "1px solid #555",
+            borderRadius: "25px 0 0 25px",
+            background: "rgba(255, 255, 255, 0.9)",
+            color: "#333",
+            outline: "none",
+            fontSize: "1rem",
+        },
+        searchButton: {
+            padding: "12px 25px",
+            border: "none",
+            background: "#007bff",
+            color: "white",
+            borderRadius: "0 25px 25px 0",
+            cursor: "pointer",
+            fontSize: "1rem",
+            fontWeight: "600",
+        },
+        filters: {
+            padding: "20px 0",
+            background: "#f8f9fa",
+            borderBottom: "1px solid #e0e0e0",
+        },
+        filtersHeader: {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "15px",
+        },
+        filterOptions: {
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            alignItems: "center",
+        },
+        select: {
+            appearance: "none",
+            border: "1px solid #ced4da",
+            borderRadius: "20px",
+            padding: "8px 32px 8px 16px",
+            background: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") no-repeat right 0.75rem center/16px 12px`,
+            backgroundColor: "#ffffff",
+            cursor: "pointer",
+            height: "40px",
+        },
+        clearFiltersBtn: {
+            padding: "8px 15px",
+            border: "1px solid #dc3545",
+            borderRadius: "6px",
+            cursor: "pointer",
+            background: "white",
+            color: "#dc3545",
+            fontWeight: "600",
+        },
+        alumniGrid: {
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "24px",
+            marginTop: "40px",
+            paddingBottom: "40px",
+        },
+        alumniCard: {
+            background: "white",
+            borderRadius: "12px",
+            padding: "20px",
+            textAlign: "center",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.08)",
+            cursor: 'pointer', // Make card look clickable
+        },
+        alumniAvatar: {
+            width: "100px",
+            height: "100px",
+            borderRadius: "50%",
+            marginBottom: "15px",
+            border: "3px solid #007bff",
+            display: "block",
+            margin: "0 auto 15px auto",
+        },
+        alumniMeta: {
+            color: "#6c757d",
+            fontSize: "0.9rem",
+            margin: "5px 0",
+        },
+        alumniRole: {
+            marginTop: "15px",
+            fontWeight: "bold",
+            color: "#343a40",
+            fontSize: "1.1rem",
+        },
+        alumniLocation: {
+            fontSize: "0.9rem",
+            color: "#495057",
+            marginBottom: "15px",
+        },
+        alumniActions: {
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "space-around",
+            gap: "10px",
+        },
+        profileBtn: {
+            padding: "10px 15px",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            background: "#007bff",
+            color: "white",
+            fontWeight: "600",
+        },
+        contactBtn: {
+            padding: "10px 15px",
+            border: "1px solid #ced4da",
+            borderRadius: "8px",
+            cursor: "pointer",
+            background: "#f1f3f5",
+            color: "#495057",
+            fontWeight: "600",
+        },
+         siteFooter: {
+      backgroundColor: "#002d42",
+      color: "#fff",
+      padding: "4rem 2rem",
+      marginTop: "3rem",
     },
-    experience: [
-        {
-            logo: "/public/Images/OIP.webp",
-            company: "Google",
-            role: "Product & UI/UX Designer",
-            period: "Apr 2024 - Present | Pune, India"
-        },
-        {
-            logo: "/Images/tcs.jpeg",
-            company: "tcs",
-            role: "UI/UX Designer",
-            period: "Jul 2022 - Jul 2024 | Bengaluru, India"
-        },
-        {
-            logo: "https://placehold.co/48x48/8b5cf6/ffffff?text=RS",
-            company: "Ramotion Studio",
-            role: "Web Designer",
-            period: "Apr 2021 - July 2022 | Bengaluru, India"
-        }
-    ],
-    education: [
-         {
-            logo: "/public/Images/Nit.jpeg",
-            institution: "NIT Trichy",
-            degree: "Master of Technology",
-            period: "2019 - 2022 | Hyderabad, India"
-        },
-        {
-            logo: "/public/Images/Techno.png",
-            institution: "Techno Main Salt Lake",
-            degree: "Bachelor of Technology",
-            period: "2015 - 2019 | Kolkata, India"
-        }
-    ],
-    accomplishments: [
-        { logo: "Images/bckg.jpg", title: "Best Designer Award", organization: "Infosys", year: "2020" },
-        { logo: "Images/bckg1.webp", title: "Innovator of the Year", organization: "Pixel Studio", year: "2017" }
-    ],
-    donations: [
-        { id: 1, campaign: "Annual Alumni Fund 2024", amount: "₹5,000", date: "2024-08-15" },
-        { id: 2, campaign: "Tech Wing Renovation", amount: "₹10,000", date: "2024-03-22" },
-        { id: 3, campaign: "Student Scholarship Program", amount: "₹2,500", date: "2023-11-01" },
-    ],
-    socials: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
-        website: "#",
-    }
-};
+    footerContent: {
+      maxWidth: "1200px",
+      margin: "0 auto",
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+      gap: "2rem",
+    },
+    footerCol: {
+      minWidth: "200px",
+    },
+    h3h4: {
+      fontSize: "1.1rem",
+      marginBottom: "1rem",
+      fontWeight: 600,
+    },
+    link: {
+      display: "block",
+      color: "#aeb8c9",
+      textDecoration: "none",
+      marginBottom: "0.75rem",
+    },
+    p: {
+      margin: "0 0 0.5rem 0",
+      fontSize: "0.9rem",
+      color: "#aeb8c9",
+    },
+    button: {
+      background: "none",
+      border: "2px solid #fff",
+      color: "#fff",
+      padding: "0.75rem 1.5rem",
+      fontSize: "1rem",
+      fontWeight: 600,
+      cursor: "pointer",
+      marginTop: "1rem",
+    },
+    socialIcons: {
+      display: "flex",
+      gap: "1rem",
+      marginTop: "1.5rem",
+    },
+    socialLink: {
+      color: "#fff",
+    },
+    };
 
-// --- CSS Styles ---
-// We embed the CSS directly in the component using a <style> tag
-const Styles = () => (
-    <style>{`
+    return (
+        <div>
+            <div style={styles.bannerWrapper}>
+                <img src="./public/Images/1567666.png" alt="Banner Background" style={styles.bannerImg} />
+                <div style={styles.bannerOverlay}>
+                    <button style={styles.viewInsightsBtn}>View Insights</button>
+                    <h1 style={styles.bannerTitle}>Alumni Directory</h1>
+                    <p style={styles.bannerText}>
+                        Connect with our growing community of <b>29+ alumni</b> across <b>13 cities</b>.
+                    </p>
+                    <div style={styles.stats}>
+                        <div style={styles.statsBox}><h2>29</h2><span>Total Alumni</span></div>
+                        <div style={styles.statsBox}><h2>6</h2><span>Companies</span></div>
+                        <div style={styles.statsBox}><h2>13</h2><span>Cities</span></div>
+                    </div>
+                    <div style={styles.searchBar}>
+                        <input type="text" placeholder="Search alumni by name, skills, company…" style={styles.searchInput} />
+                        <button style={styles.searchButton}>Search</button>
+                    </div>
+                </div>
+            </div>
+
+            <section style={styles.filters}>
+                <div style={styles.container}>
+                    <div style={styles.filtersHeader}>
+                        <h3>Filters</h3>
+                        <button style={styles.clearFiltersBtn}>Clear all filters</button>
+                    </div>
+                    <div style={styles.filterOptions}>
+                        <select style={styles.select}><option>All Departments</option></select>
+                        <select style={styles.select}><option>All Batches</option></select>
+                        <select style={styles.select}><option>All Companies</option></select>
+                        <select style={styles.select}><option>All Locations</option></select>
+                        <select style={styles.select}><option>All Statuses</option></select>
+                        <select style={styles.select}><option>All Degrees</option></select>
+                    </div>
+                </div>
+            </section>
+
+            <section style={styles.container}>
+                <div style={styles.alumniGrid}>
+                    {alumniList.map((alumni) => (
+                        <AlumniCard key={alumni.id} alumni={alumni} styles={styles} onCardClick={() => onAlumniSelect(alumni)} />
+                    ))}
+                </div>
+            </section>
+
+            <footer style={styles.siteFooter}>
+      <div style={styles.footerContent}>
+        {/* Contact Info */}
+        <div style={{ ...styles.footerCol }}>
+          <h3 style={styles.h3h4}>Caltech Alumni</h3>
+          <p style={styles.p}>Caltech Alumni Association</p>
+          <p style={styles.p}>MC 1-97</p>
+          <p style={styles.p}>1200 E. California Boulevard</p>
+          <p style={styles.p}>Pasadena, CA 91125</p>
+          <p style={styles.p}>626-395-6592</p>
+          <button style={styles.button}>Contact Us</button>
+          <div style={styles.socialIcons}>
+            <a href="#" style={styles.socialLink}>
+              <FacebookIcon />
+            </a>
+            <a href="#" style={styles.socialLink}>
+              <XIcon />
+            </a>
+            <a href="#" style={styles.socialLink}>
+              <LinkedInIcon />
+            </a>
+            <a href="#" style={styles.socialLink}>
+              <InstagramIcon />
+            </a>
+          </div>
+        </div>
+
+        {/* Connect */}
+        <div style={styles.footerCol}>
+          <h4 style={styles.h3h4}>Connect</h4>
+          <a href="#" style={styles.link}>Techer Professional Network</a>
+          <a href="#" style={styles.link}>Alumni Near Me</a>
+          <a href="#" style={styles.link}>In Memoriam</a>
+          <a href="#" style={styles.link}>Directory</a>
+        </div>
+
+        {/* Engage */}
+        <div style={styles.footerCol}>
+          <h4 style={styles.h3h4}>Engage</h4>
+          <a href="#" style={styles.link}>Programs</a>
+          <a href="#" style={styles.link}>Partner</a>
+          <a href="#" style={styles.link}>Give</a>
+          <a href="#" style={styles.link}>Oral History Project</a>
+        </div>
+
+        {/* Achieve */}
+        <div style={styles.footerCol}>
+          <h4 style={styles.h3h4}>Achieve</h4>
+          <a href="#" style={styles.link}>Distinguished Alumni Award</a>
+          <a href="#" style={styles.link}>Chang Career Exploration Prize</a>
+          <a href="#" style={styles.link}>Share Your Achievements</a>
+        </div>
+
+        {/* Techer */}
+        <div style={styles.footerCol}>
+          <h4 style={styles.h3h4}>Techer</h4>
+          <a href="#" style={styles.link}>Home</a>
+          <a href="#" style={styles.link}>Stories</a>
+          <a href="#" style={styles.link}>News</a>
+        </div>
+      </div>
+    </footer>
+        </div>
+    );
+}
+
+function AlumniCard({ alumni, styles, onCardClick }) {
+    return (
+        <div style={styles.alumniCard} onClick={onCardClick}>
+            {/* MODIFICATION: The 'src' now uses alumni.avatarUrl */}
+            <img src={alumni.avatarUrl} alt={alumni.name} style={styles.alumniAvatar} />
+            <h3>{alumni.name}</h3>
+            <p style={styles.alumniMeta}>{alumni.year}</p>
+            <p style={styles.alumniMeta}>{alumni.degree} — {alumni.department}</p>
+            <p style={styles.alumniRole}>{alumni.role} @ {alumni.company}</p>
+            <p style={styles.alumniLocation}>{alumni.location}</p>
+            <div style={styles.alumniActions}>
+                <button style={styles.profileBtn}>View Profile</button>
+                <button style={styles.contactBtn}>Contact</button>
+            </div>
+        </div>
+    );
+}
+//==================================================================
+// 3. ALUMNI PROFILE PAGE COMPONENT
+//==================================================================
+function AlumniProfilePage({ onBackClick }) {
+    // This component uses the exact code and data you provided.
+    // The "Back" button functionality is the only addition.
+    const alumniData = {
+        name: "Amit Grover",
+        title: "UI/UX Designer",
+        avatarUrl: "/public/Images/profile.webp",
+        bio: "Full stack product designer with hands-on experience in solving problems for clients ranging from Real Estate, Hospitality, Rentals, On Demand Healthcare, IT Services & Social network among others. End-to-end user-centric-skills, with a defined process for engagement, a toolkit for collaboration & a user-centered approach to design.",
+        skills: ["User Interface Designing", "UX", "UI", "Adobe XD", "Mobile Apps", "User Research", "Wireframing", "Information Architecture"],
+        basicInfo: {
+            age: "28 years",
+            experience: "4 years",
+            role: "UI/UX Designer",
+            location: "Pune, Maharastra",
+            Availibility: "+91 98123 55679",
+            email: "amitgrover@gmail.com"
+        },
+        experience: [
+            {
+                logo: "/public/Images/OIP.webp",
+                company: "Google",
+                role: "Product & UI/UX Designer",
+                period: "Apr 2024 - Present | Pune, India"
+            },
+            {
+                logo: "/Images/tcs.jpeg",
+                company: "tcs",
+                role: "UI/UX Designer",
+                period: "Jul 2022 - Jul 2024 | Bengaluru, India"
+            },
+            {
+                logo: "https://placehold.co/48x48/8b5cf6/ffffff?text=RS",
+                company: "Ramotion Studio",
+                role: "Web Designer",
+                period: "Apr 2021 - July 2022 | Bengaluru, India"
+            }
+        ],
+        education: [
+            {
+                logo: "/public/Images/Nit.jpeg",
+                institution: "NIT Trichy",
+                degree: "Master of Technology",
+                period: "2019 - 2022 | Hyderabad, India"
+            },
+            {
+                logo: "/public/Images/Techno.png",
+                institution: "Techno Main Salt Lake",
+                degree: "Bachelor of Technology",
+                period: "2015 - 2019 | Kolkata, India"
+            }
+        ],
+        accomplishments: [
+            { logo: "Images/bckg.jpg", title: "Best Designer Award", organization: "Infosys", year: "2020" },
+            { logo: "Images/bckg1.webp", title: "Innovator of the Year", organization: "Pixel Studio", year: "2017" }
+        ],
+        donations: [
+            { id: 1, campaign: "Annual Alumni Fund 2024", amount: "₹5,000", date: "2024-08-15" },
+            { id: 2, campaign: "Tech Wing Renovation", amount: "₹10,000", date: "2024-03-22" },
+            { id: 3, campaign: "Student Scholarship Program", amount: "₹2,500", date: "2023-11-01" },
+        ],
+        socials: {
+            linkedin: "#",
+            twitter: "#",
+            github: "#",
+            website: "#",
+        }
+    };
+    
+    const [notes, setNotes] = useState([]);
+    const [newNote, setNewNote] = useState("");
+    const [isDonationModalOpen, setDonationModalOpen] = useState(false);
+    const [isBookingModalOpen, setBookingModalOpen] = useState(false);
+
+    const handleAddNote = () => {
+        if (newNote.trim()) {
+            setNotes([...notes, newNote]);
+            setNewNote("");
+        }
+    };
+
+    const dashboardItems = [
+        { id: 'jobs', icon: <PostedJobsIcon />, label: 'Posted Jobs', count: 0 },
+        { id: 'apps', icon: <ApplicationsIcon />, label: 'Applications', count: 0 },
+        { id: 'referral', icon: <ReferralIcon />, label: 'Referral Requests', count: 2, active: true },
+        { id: 'events', icon: <EventsIcon />, label: 'Events', count: 0 },
+        { id: 'campaigns', icon: <CampaignsIcon />, label: 'Campaigns', count: 0 },
+        { id: 'donations', icon: <DonationsIcon />, label: 'My Donations', count: alumniData.donations.length, action: () => setDonationModalOpen(true) },
+    ];
+
+    const Styles = () => (
+        <style>{`
         /* General Body Styles */
         .alumni-profile-page {
             background-color: #f1f5f9;
@@ -609,40 +1050,15 @@ const Styles = () => (
             .profile-body { grid-template-columns: 1fr 3fr; } /* Wider main content on large screens */
         }
     `}</style>
-);
-
-
-// --- Main App Component ---
-export default function AlumniProfilePage() {
-    const [notes, setNotes] = useState([]);
-    const [newNote, setNewNote] = useState("");
-    const [isDonationModalOpen, setDonationModalOpen] = useState(false);
-    const [isBookingModalOpen, setBookingModalOpen] = useState(false);
-
-    const handleAddNote = () => {
-        if (newNote.trim()) {
-            setNotes([...notes, newNote]);
-            setNewNote("");
-        }
-    };
-
-    const dashboardItems = [
-        { id: 'jobs', icon: <PostedJobsIcon />, label: 'Posted Jobs', count: 0 },
-        { id: 'apps', icon: <ApplicationsIcon />, label: 'Applications', count: 0 },
-        { id: 'referral', icon: <ReferralIcon />, label: 'Referral Requests', count: 2, active: true },
-        { id: 'events', icon: <EventsIcon />, label: 'Events', count: 0 },
-        { id: 'campaigns', icon: <CampaignsIcon />, label: 'Campaigns', count: 0 },
-        { id: 'donations', icon: <DonationsIcon />, label: 'My Donations', count: alumniData.donations.length, action: () => setDonationModalOpen(true) },
-    ];
+    );
 
     return (
         <>
             <Styles />
             <div className="alumni-profile-page">
                 <div className="profile-container">
-                    {/* Header */}
                     <header className="profile-header">
-                        <button className="back-button">
+                        <button className="back-button" onClick={onBackClick}>
                             <BackIcon />
                             <span>Back</span>
                         </button>
@@ -652,9 +1068,7 @@ export default function AlumniProfilePage() {
                         </button>
                     </header>
 
-                    {/* Main Body */}
                     <div className="profile-body">
-                        {/* Left Sidebar */}
                         <aside className="profile-sidebar">
                             <div className="sidebar-header">
                                 <img src={alumniData.avatarUrl} alt={alumniData.name} className="avatar" />
@@ -696,15 +1110,13 @@ export default function AlumniProfilePage() {
                             </div>
                         </aside>
 
-                        {/* Right Content */}
                         <main className="main-content">
-                            {/* Basic Info */}
                             <div className="basic-info-card">
                                 <h3 className="card-title">Basic Information</h3>
                                 <div className="info-grid">
                                     <div><span className="info-label">AGE</span><span className="info-value">{alumniData.basicInfo.age}</span></div>
                                     <div><span className="info-label">YEARS OF EXPERIENCE</span><span className="info-value">{alumniData.basicInfo.experience}</span></div>
-                                    <div><span className="info-label">PHONE</span><span className="info-value">{alumniData.basicInfo.workphone}</span></div>
+                                    <div><span className="info-label">PHONE</span><span className="info-value">{alumniData.basicInfo.Availibility}</span></div>
                                     <div><span className="info-label">Role</span><span className="info-value">{alumniData.basicInfo.role}</span></div>
                                     <div><span className="info-label">LOCATION</span><span className="info-value">{alumniData.basicInfo.location}</span></div>
                                     <div><span className="info-label">EMAIL</span><span className="info-value">{alumniData.basicInfo.email}</span></div>
@@ -716,7 +1128,6 @@ export default function AlumniProfilePage() {
                                 </div>
                             </div>
 
-                            {/* Social Buttons Section */}
                             <section className="social-buttons-section">
                                 <div className="social-buttons-container">
                                     <a href={alumniData.socials.linkedin} target="_blank" rel="noopener noreferrer" className="social-btn btn-linkedin">
@@ -738,7 +1149,6 @@ export default function AlumniProfilePage() {
                                 </div>
                             </section>
 
-                            {/* Dashboard Section */}
                             <section className="dashboard-section">
                                 <div className="dashboard-grid">
                                     {dashboardItems.map(item => (
@@ -751,9 +1161,7 @@ export default function AlumniProfilePage() {
                                 </div>
                             </section>
 
-                            {/* Content Sections */}
                             <div className="content-sections-container">
-                                {/* Experience Section */}
                                 <div className="content-section">
                                     <h3 className="content-title">Experience</h3>
                                     <div className="content-body">
@@ -769,7 +1177,6 @@ export default function AlumniProfilePage() {
                                         ))}
                                     </div>
                                 </div>
-                                {/* Education Section */}
                                 <div className="content-section">
                                     <h3 className="content-title">Education</h3>
                                     <div className="content-body">
@@ -785,7 +1192,6 @@ export default function AlumniProfilePage() {
                                         ))}
                                     </div>
                                 </div>
-                                {/* Accomplishments Section */}
                                 <div className="content-section">
                                     <h3 className="content-title">Accomplishments</h3>
                                     <div className="content-body">
@@ -804,72 +1210,34 @@ export default function AlumniProfilePage() {
                         </main>
                     </div>
                 </div>
-
-                {/* Donation Modal */}
-                {isDonationModalOpen && (
-                    <div className="modal-backdrop">
-                        <div className="modal-container">
-                            <div className="modal-header">
-                                <h3 className="modal-title">My Donations</h3>
-                                <p className="modal-subtitle">Thank you for your generous contributions!</p>
-                            </div>
-                            <div className="modal-body">
-                                <ul className="donation-list">
-                                    {alumniData.donations.map(d => (
-                                        <li key={d.id} className="donation-item">
-                                            <div>
-                                                <p className="donation-campaign">{d.campaign}</p>
-                                                <p className="donation-date">{new Date(d.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                                            </div>
-                                            <p className="donation-amount">{d.amount}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="modal-footer">
-                                <button onClick={() => setDonationModalOpen(false)} className="btn btn-secondary">Close</button>
-                                <button onClick={() => alert('Redirecting to donation page...')} className="btn btn-success">Make a New Donation</button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* Booking Modal */}
-                {isBookingModalOpen && (
-                    <div className="modal-backdrop">
-                        <div className="modal-container booking-modal">
-                            <div className="modal-header">
-                                <h3 className="modal-title">Book a 1-to-1 Call</h3>
-                                <p className="modal-subtitle">Schedule a mentoring session with {alumniData.name}.</p>
-                            </div>
-                            <div className="modal-body form-container">
-                                <div>
-                                    <label htmlFor="date" className="form-label">Select a Date</label>
-                                    <input type="date" id="date" className="form-input" />
-                                </div>
-                                <div>
-                                    <label htmlFor="time" className="form-label">Select a Time Slot</label>
-                                    <select id="time" className="form-input">
-                                        <option>09:00 AM - 09:30 AM</option>
-                                        <option>11:00 AM - 11:30 AM</option>
-                                        <option>02:00 PM - 02:30 PM</option>
-                                        <option>04:00 PM - 04:30 PM</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor="notes" className="form-label">Notes (Optional)</label>
-                                    <textarea id="notes" rows="3" placeholder="What would you like to discuss?" className="form-textarea"></textarea>
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button onClick={() => setBookingModalOpen(false)} className="btn btn-secondary">Cancel</button>
-                                <button onClick={() => { alert('Your booking request has been sent!'); setBookingModalOpen(false); }} className="btn btn-primary">Confirm Booking</button>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </>
     );
-}
+};
 
+//==================================================================
+// 4. PARENT APP COMPONENT TO MANAGE WHICH PAGE TO SHOW
+//==================================================================
+export default function App() {
+    const [selectedAlumni, setSelectedAlumni] = useState(null);
+
+    const handleAlumniSelect = (alumni) => {
+        setSelectedAlumni(alumni);
+    };
+
+    const handleBackToDirectory = () => {
+        setSelectedAlumni(null);
+    };
+
+    return (
+        <div>
+            {selectedAlumni ? (
+                // If an alumni is selected, show the Profile Page
+                <AlumniProfilePage onBackClick={handleBackToDirectory} />
+            ) : (
+                // Otherwise, show the Directory Page
+                <AlumniDirectory onAlumniSelect={handleAlumniSelect} />
+            )}
+        </div>
+    );
+}

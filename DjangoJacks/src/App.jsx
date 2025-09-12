@@ -6,11 +6,12 @@ import Landing from './Pages/LandingPage'
 import ContactUsPage from './Pages/ContactUs';
 import FaqPage from './Pages/faq';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import AlumniProfilePage from './pages/Profile/ProfilePage';
 
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
   <Route path='/' element={<Landing />} />
   <Route path='/dashboard' element={<Dashboard />} />
@@ -21,7 +22,8 @@ const App = () => {
   <Route path='/contactus' element={<ContactUsPage />} />
 </Routes>
 
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <AlumniD/>
     </div>
   )
 }
