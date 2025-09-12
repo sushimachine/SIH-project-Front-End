@@ -46,9 +46,9 @@ const alumniData = {
     basicInfo: {
         age: "28 years",
         experience: "4 years",
-        ctc: "12.5 Lac",
+        role: "UI/UX Designer",
         location: "Pune, Maharastra",
-        workphone: "+91 98123 55679",
+        Availibility: "+91 98123 55679",
         email: "amitgrover@gmail.com"
     },
     experience: [
@@ -705,7 +705,7 @@ export default function AlumniProfilePage() {
                                     <div><span className="info-label">AGE</span><span className="info-value">{alumniData.basicInfo.age}</span></div>
                                     <div><span className="info-label">YEARS OF EXPERIENCE</span><span className="info-value">{alumniData.basicInfo.experience}</span></div>
                                     <div><span className="info-label">PHONE</span><span className="info-value">{alumniData.basicInfo.workphone}</span></div>
-                                    <div><span className="info-label">CTC</span><span className="info-value">{alumniData.basicInfo.ctc}</span></div>
+                                    <div><span className="info-label">Role</span><span className="info-value">{alumniData.basicInfo.role}</span></div>
                                     <div><span className="info-label">LOCATION</span><span className="info-value">{alumniData.basicInfo.location}</span></div>
                                     <div><span className="info-label">EMAIL</span><span className="info-value">{alumniData.basicInfo.email}</span></div>
                                 </div>
